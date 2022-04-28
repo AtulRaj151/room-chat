@@ -5,7 +5,7 @@ const auth = require('../../../middleware/auth');
 
 const router = express.Router();
 
-router.post('/login/:userId',auth.encode,userController.onUserlogin)
+router.post('/login',auth.encode,userController.onUserlogin)
 router.get('/fetch', userController.onGetAllUsers)
 router.post('/create', userController.onCreateUser)
 router.get('/:id', userController.onGetUserById)

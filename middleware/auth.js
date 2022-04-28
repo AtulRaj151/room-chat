@@ -20,8 +20,11 @@ const auth = {
   },
   encode: async (req, res, next) => {
     try {
-        const { userId } = req.params;
-        const user = await UserModel.getUserById(userId);
+        const { username, password } = req.body;
+        const user = await UserModel.getByUserName(username);
+        if(!user || user.password !== password) {
+           return res.status(401).json({ success: false, message: "invalid username"})
+        }
         const payload = {
           userId: user._id,
           userType: user.type,

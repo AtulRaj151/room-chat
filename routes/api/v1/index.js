@@ -10,7 +10,7 @@ router.get('/',(req,res)=> {
 
 // register/login admin section
 router.post('/admin/register', adminController.registerAdmin);
-router.post('/admin/login', adminController.loginAdmin);
+// router.post('/admin/login', adminController.loginAdmin);
 router.use('/user', require('./user'));
 router.use('/room', decode, require('./chatRoom'));
 router.use('/delete',require('./delete'));

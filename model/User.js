@@ -6,18 +6,23 @@ const { v4: uuidv4 } = require('uuid');
  const USER_TYPES = {
     ADMIN: "admin",
     TRAINER: "trainer",
-    CONSUMER: 'consumer'
+    READER: 'reader'
 };
-
-
 const userSchema = new mongoose.Schema(
     {
       _id: {
         type: String,
         default: () => uuidv4().replace(/\-/g, ""),
       },
+      username: String,
+      password: String,
       firstName: String,
       lastName: String,
+      college:{
+          type: String,
+          default: ""
+      },
+      mobile: Number,
       type: String,
     },
     {
@@ -30,11 +35,13 @@ const userSchema = new mongoose.Schema(
  * @param {String} lastName
  * @returns {Object} new user object created
  */
- userSchema.statics.createUser = async function (firstName, lastName, type) {
+ userSchema.statics.createUser = async function (firstName, lastName, college, mobile, type, username, password) {
     try {
-      const user = await this.create({ firstName, lastName, type });
+      const user = await this.create({ firstName, lastName, college, mobile, type, username, password });
+      console.log(user)
       return user;
     } catch (error) {
+        console.log(error)
       throw error;
     }
   }
@@ -92,6 +99,16 @@ const userSchema = new mongoose.Schema(
       throw error;
     }
   }
+
+  userSchema.statics.getByUserName = async function (username) {
+      try {
+          const user = await this.findOne({username});
+          return user;
+      } catch (error) {
+          throw error;
+      }
+  }
+
 
   const UserModel = mongoose.model('User',userSchema);
   module.exports = {UserModel, USER_TYPES}

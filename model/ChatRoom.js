@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 // TODO: change later
 const CHAT_ROOM_TYPES = {
-    CONSUMER_TO_CONSUMER: "consumer-to-consumer",
-    CONSUMER_TO_SUPPORT: "consumer-to-support",
+    CONSUMER_TO_CONSUMER: "admin-to-reader",
+    CONSUMER_TO_SUPPORT: "trainer-to-reader",
 };
 
 const chatRoomSchema = new mongoose.Schema(
